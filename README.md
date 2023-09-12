@@ -1,63 +1,17 @@
-# Nuxt 3 Minimal Starter
+Запуск проекта
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
+npm i
+npx prisma generate
+npx prisma migrate dev --name init
 npm run dev
 
-# pnpm
-pnpm run dev
 
-# yarn
-yarn dev
-```
+npm i && npx prisma generate && npx prisma migrate dev --name init && npm run dev
 
-## Production
+Работает следующим образом:
+1) npx prisma generate - подтягивает файл seed.js из ./prisma, который тянет ручки supabase (postgres db) для создания таблицы Products.
+2) npx prisma migrate - синхронизирует (на всякий случай) схему описанную в ./prisma/schema.prisma для всех таблиц и создает историю .sql файлов миграции.
 
-Build the application for production:
+Дальше просто из компонентов обращаемся в Node (реализуя трехуровневую архитектуру) frontapp <-> node <-> supabase.
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Авторизация на OAuth с использованием api google и github
